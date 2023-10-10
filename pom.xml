@@ -58,7 +58,6 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-
         </plugins>
 
         <resources>
@@ -71,9 +70,8 @@
 
     <distributionManagement>
         <repository>
-            <id>internal.repo</id>
-            <name>Temporary Staging Repository</name>
-            <url>file://${project.build.directory}/mvn-artifact</url>
+            <id>space-rocket-api</id>
+            <url>https://maven.pkg.jetbrains.space/lureg/p/main/rocket-api</url>
         </repository>
     </distributionManagement>
 
