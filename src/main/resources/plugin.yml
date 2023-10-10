@@ -1,0 +1,11 @@
+name: RocketAPI
+version: '${project.version}'
+main: api.sseakk.rocketapi.RocketAPI
+api-version: 1.19
+prefix: RocketAPI
+authors: [ sSeaKk ]
+description: Internal API of sSeaKk
+
+commands:
+  rocketapi:
+    description: api basic command
