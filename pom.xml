@@ -6,7 +6,7 @@
 
     <groupId>api.sseakk</groupId>
     <artifactId>RocketAPI</artifactId>
-    <version>21</version>
+    <version>1.3</version>
     <packaging>jar</packaging>
 
     <name>RocketAPI</name>
@@ -45,14 +45,6 @@
                 </executions>
             </plugin>
             <plugin>
-                <artifactId>maven-deploy-plugin</artifactId>
-                <configuration>
-                    <altDeploymentRepository>
-                        internal.repo::default::file://${project.build.directory}/mvn-artifact
-                    </altDeploymentRepository>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-clean-plugin</artifactId>
                 <configuration>
                     <skip>true</skip>
@@ -70,15 +62,16 @@
 
     <distributionManagement>
         <repository>
-            <id>space-rocket-api</id>
-            <url>https://maven.pkg.jetbrains.space/lureg/p/main/rocket-api</url>
+            <id>github</id>
+            <name>GitHub sSeaKk Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/sSeaKk/RocketAPI</url>
         </repository>
     </distributionManagement>
 
     <repositories>
         <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+            <id>papermc-repo</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
             <id>sonatype</id>
@@ -88,9 +81,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.19.3-R0.1-SNAPSHOT</version>
+            <groupId>io.papermc.paper</groupId>
+            <artifactId>paper-api</artifactId>
+            <version>1.20-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

@@ -1,6 +1,5 @@
 package api.sseakk.rocketapi;
 
-import api.sseakk.rocketapi.util.MessageUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -40,7 +39,7 @@ public class FileManager {
     public File loadFile(String path, String fileName){
         this.file = new File(this.plugin.getDataFolder().getPath() + path, fileName);
         if(!this.file.exists()) {
-            MessageUtil.errorMessage(this.plugin, "A file is not found! (PATH: " + this.file.getPath() + ")");
+            RocketAPI.getInstance().getMessages().errorMessage(this.plugin, "A file is not found! (PATH: " + this.file.getPath() + ")");
         }
 
         try{
@@ -61,7 +60,7 @@ public class FileManager {
         File fileToDelete = new File(this.plugin.getDataFolder().getPath() + path, fileName);
 
         if(!fileToDelete.delete()){
-            MessageUtil.errorMessage(this.plugin, "A file is not found! (PATH: " + this.file.getPath() + ")");
+            RocketAPI.getInstance().getMessages().errorMessage(this.plugin, "A file is not found! (PATH: " + this.file.getPath() + ")");
         }
     }
 

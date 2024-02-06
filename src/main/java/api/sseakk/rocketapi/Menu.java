@@ -1,7 +1,6 @@
 package api.sseakk.rocketapi;
 
 import api.sseakk.rocketapi.util.TextUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;

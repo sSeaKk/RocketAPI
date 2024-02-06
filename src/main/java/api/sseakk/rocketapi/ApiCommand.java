@@ -1,5 +1,7 @@
 package api.sseakk.rocketapi;
 
+import api.sseakk.rocketapi.database.Database;
+import api.sseakk.rocketapi.database.TestDatabase;
 import api.sseakk.rocketapi.util.MessageUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -11,11 +13,13 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ApiCommand implements TabExecutor{
+public class ApiCommand implements TabExecutor {
     private RocketAPI plugin;
+    private MessageUtil messages;
 
     public ApiCommand(RocketAPI plugin){
         this.plugin = plugin;
+        this.messages = this.plugin.getMessages();
     }
 
     @Override
@@ -23,33 +27,41 @@ public class ApiCommand implements TabExecutor{
         if(args.length > 0){
             if(args[0].equalsIgnoreCase("version")){
                 if(sender instanceof Player){
-                    MessageUtil.playerMessage((Player) sender, this.plugin.getPluginTag() + "version "+ this.plugin.getVersion());
+                    this.messages.playerMessage((Player) sender, this.plugin.getPluginTag() + "version "+ this.plugin.getVersion());
                 } else{
-                    MessageUtil.infoMessage(this.plugin, "version: " + this.plugin.getVersion());
+                    this.messages.infoMessage("version: " + this.plugin.getVersion());
                 }
                 return true;
             }
 
             if(args[0].equalsIgnoreCase("author")){
                 if(sender instanceof Player){
-                    MessageUtil.playerMessage(((Player) sender).getPlayer(), this.plugin.getPluginTag() + "author: " + this.plugin.getAuthor());
+                    this.messages.playerMessage(((Player) sender).getPlayer(), this.plugin.getPluginTag() + "author: " + this.plugin.getAuthor());
                 } else{
-                    MessageUtil.infoMessage(this.plugin, "author: " + this.plugin.getAuthor());
+                    this.messages.infoMessage("author: " + this.plugin.getAuthor());
                 }
                 return true;
             }
+
+            if(args[0].equalsIgnoreCase("testDatabase") || args[0].equalsIgnoreCase("td")){
+               Database database = this.plugin.getDbManager().connectDatabase("localhost:3306", "RocketAPI");
+               TestDatabase td = new TestDatabase(database.getName(), database.getConnection());
+
+               td.testStatement();
+               return true;
+            }
         }
 
-        if(sender instanceof Player){
-            MessageUtil.playerMessage((((Player) sender).getPlayer()), this.plugin.getPluginTag() + "Commands: " +
+        /*if(sender instanceof Player){
+            this.messages.playerMessage((((Player) sender).getPlayer()), this.plugin.getPluginTag() + "Commands: " +
                     "\n&6/rocketapi version &f: shows api version" +
                     "\n&6/rocketapi author &f: shows api author");
         } else {
-            MessageUtil.infoMessage(this.plugin,"Commands:" +
+            this.messages.infoMessage("Commands:" +
                     "\n/rocketapi version &f: shows api version" +
                     "\n/rocketapi author &f: shows api author");
-        }
-        return true;
+        }*/
+        return false;
     }
 
     @Override

@@ -1,28 +1,31 @@
 package api.sseakk.rocketapi;
 
+import api.sseakk.rocketapi.database.DatabaseManager;
 import api.sseakk.rocketapi.util.MessageUtil;
 import api.sseakk.rocketapi.util.TextUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class RocketAPI extends JavaPlugin {
-    private static RocketAPI instance;
+    private DatabaseManager dbManager;
+    private MessageUtil messages;
     private String pluginTag = TextUtil.colorText("&c&l[&7&lRocketAPI&c&l]&r ");
 
     @Override
     public void onEnable() {
-        instance = this;
+        this.messages = new MessageUtil(this);
+        this.dbManager = new DatabaseManager(this);
         this.getCommand("rocketapi").setExecutor(new ApiCommand(this));
         this.getCommand("rocketapi").setTabCompleter(new ApiCommand(this));
-        MessageUtil.infoMessage(this, "Initializing internal API.");
+        this.messages.infoMessage("Initializing internal API.");
     }
 
     @Override
     public void onDisable() {
-        MessageUtil.infoMessage(this, "Disabling internal API.");
+        this.messages.infoMessage("Disabling internal API.");
     }
 
     public static RocketAPI getInstance(){
-        return instance;
+        return getPlugin(RocketAPI.class);
     }
 
     public String getVersion(){
@@ -36,4 +39,10 @@ public final class RocketAPI extends JavaPlugin {
     public String getAuthor(){
         return "sSeaKk";
     }
+
+    public MessageUtil getMessages() {
+        return messages;
+    }
+
+    public DatabaseManager getDbManager() { return dbManager; }
 }
