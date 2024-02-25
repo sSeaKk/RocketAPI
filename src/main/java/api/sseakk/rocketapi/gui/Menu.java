@@ -18,8 +18,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
-import net.md_5.bungee.api.ChatColor;
-
 public abstract class Menu {
     protected Component menuName;
     protected int slots;
