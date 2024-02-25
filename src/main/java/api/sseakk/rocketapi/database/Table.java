@@ -9,7 +9,7 @@ public abstract class Table {
     private String[] columns;
 
     protected Table(Database database, String name, String... columns) {
-        this.name = name;
+        this.name = name.toLowerCase();
         this.database = database;
         this.columns = columns;
 

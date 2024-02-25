@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>api.sseakk</groupId>
-    <artifactId>RocketAPI</artifactId>
-    <version>1.3</version>
+    <artifactId>rocketapi</artifactId>
+    <version>1.4</version>
     <packaging>jar</packaging>
 
     <name>RocketAPI</name>
@@ -26,6 +26,13 @@
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
+                    <excludes>
+                        <exclude>api/sseakk/rocketapi/database/TestDatabase.java</exclude>
+                        <exclude>api/sseakk/rocketapi/testclases/TableTestInt.java</exclude>
+                        <exclude>api/sseakk/rocketapi/testclases/TableTestVarchar.java</exclude>
+                        <exclude>api/sseakk/rocketapi/testclases/TableTestTime.java</exclude>
+                    </excludes>
+                    <useIncrementalCompilation>false</useIncrementalCompilation>
                 </configuration>
             </plugin>
             <plugin>
@@ -50,6 +57,7 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
+
         </plugins>
 
         <resources>

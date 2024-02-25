@@ -1,7 +1,6 @@
 package api.sseakk.rocketapi;
 
 import api.sseakk.rocketapi.database.Database;
-import api.sseakk.rocketapi.database.TestDatabase;
 import api.sseakk.rocketapi.util.MessageUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -43,13 +42,13 @@ public class ApiCommand implements TabExecutor {
                 return true;
             }
 
-            if(args[0].equalsIgnoreCase("testDatabase") || args[0].equalsIgnoreCase("td")){
+            /*if(args[0].equalsIgnoreCase("testDatabase") || args[0].equalsIgnoreCase("td")){
                Database database = this.plugin.getDbManager().connectDatabase("localhost:3306", "RocketAPI");
                TestDatabase td = new TestDatabase(database.getName(), database.getConnection());
 
                td.testStatement();
                return true;
-            }
+            }*/
         }
 
         /*if(sender instanceof Player){
