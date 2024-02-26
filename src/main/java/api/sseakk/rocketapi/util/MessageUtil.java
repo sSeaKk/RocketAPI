@@ -5,6 +5,8 @@ import api.sseakk.rocketapi.database.Database;
 import api.sseakk.rocketapi.database.Table;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -88,5 +90,10 @@ public class MessageUtil {
 
     public void databaseConnectionError(String dbName){
         this.rocketLog.warning(TextUtil.databasePrefix(this.plugin, dbName) + ": Database connection failed. Check the connection data again.");
+    }
+
+    public void messageSender(CommandSender sender, String message){
+        if(sender instanceof Player) playerMessage((Player) sender, message);
+        if(sender instanceof ConsoleCommandSender) infoMessage(message);
     }
 }
