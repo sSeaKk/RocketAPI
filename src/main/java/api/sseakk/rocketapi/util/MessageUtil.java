@@ -13,8 +13,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.logging.Logger;
 
 public class MessageUtil {
-    private JavaPlugin plugin;
-    private Logger rocketLog;
+    private final JavaPlugin plugin;
+    private final Logger rocketLog;
 
     public MessageUtil(JavaPlugin plugin){
         this.plugin = plugin;
@@ -34,46 +34,32 @@ public class MessageUtil {
     }
 
     public void broadcastMessage(String message){
-        Bukkit.getServer().broadcastMessage(message);
+        this.plugin.getServer().broadcastMessage(message);
     }
 
     public void broadcastMessage(TextComponent message){
-        Bukkit.getServer().spigot().broadcast(message);
+        this.plugin.getServer().spigot().broadcast(message);
     }
 
-    public void warningMessage(JavaPlugin plugin, String message){
+    public void warningMessage(String message){
         plugin.getServer().getLogger().warning("[" + plugin.getName() + "] " + message);
     }
-    public void errorMessage(JavaPlugin plugin, String message){
+
+    public void errorMessage(String message){
         plugin.getServer().getLogger().severe("[" + plugin.getName() + "] " + message);
     }
+
     public void delayedMessage(Player player, int secs, String message) {
-        Bukkit.getServer().getScheduler().runTaskLater(RocketAPI.getInstance(), new Runnable() {
-            public void run() {
-                playerMessage(player, message);
-            }
-        }, (secs * 20L));
+        Bukkit.getServer().getScheduler().runTaskLater(RocketAPI.getInstance(), () -> playerMessage(player, message), (secs * 20L));
     }
     public void delayedMessage(Player player, int secs, TextComponent... message) {
-        Bukkit.getServer().getScheduler().runTaskLater(RocketAPI.getInstance(), new Runnable() {
-            public void run() {
-                playerMessage(player, message);
-            }
-        }, (secs * 20L));
+        Bukkit.getServer().getScheduler().runTaskLater(RocketAPI.getInstance(), () -> playerMessage(player, message), (secs * 20L));
     }
     public void delayedMessage(Player player, Long mili, String message) {
-        Bukkit.getServer().getScheduler().runTaskLater(RocketAPI.getInstance(), new Runnable() {
-            public void run() {
-                playerMessage(player, message);
-            }
-        }, mili);
+        Bukkit.getServer().getScheduler().runTaskLater(RocketAPI.getInstance(), () -> playerMessage(player, message), mili);
     }
     public void delayedMessage(Player player, Long mili, TextComponent... message) {
-        Bukkit.getServer().getScheduler().runTaskLater(RocketAPI.getInstance(), new Runnable() {
-            public void run() {
-                playerMessage(player, message);
-            }
-        }, mili);
+        Bukkit.getServer().getScheduler().runTaskLater(RocketAPI.getInstance(), () -> playerMessage(player, message), mili);
     }
 
     public void databaseLog(Database database, String message){
