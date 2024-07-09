@@ -7,10 +7,11 @@ import java.io.File;
 
 public class FileManager {
     private final JavaPlugin plugin;
-    private final MessageUtil msg = RocketAPI.getInstance().getMessages();
+    private final MessageUtil msg;
 
     public FileManager(JavaPlugin plugin){
         this.plugin = plugin;
+        this.msg = RocketAPI.getInstance().getMessages();
     }
 
     public File createFile(String path, String fileName){

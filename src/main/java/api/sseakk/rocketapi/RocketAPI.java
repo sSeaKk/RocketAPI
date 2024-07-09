@@ -5,6 +5,8 @@ import api.sseakk.rocketapi.util.MessageUtil;
 import api.sseakk.rocketapi.util.TextUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Objects;
+
 public final class RocketAPI extends JavaPlugin {
     private DatabaseManager dbManager;
     private MessageUtil messages;
@@ -14,8 +16,8 @@ public final class RocketAPI extends JavaPlugin {
     public void onEnable() {
         this.messages = new MessageUtil(this);
         this.dbManager = new DatabaseManager(this);
-        this.getCommand("rocketapi").setExecutor(new ApiCommand(this));
-        this.getCommand("rocketapi").setTabCompleter(new ApiCommand(this));
+        Objects.requireNonNull(this.getCommand("rocketapi")).setExecutor(new ApiCommand(this));
+        Objects.requireNonNull(this.getCommand("rocketapi")).setTabCompleter(new ApiCommand(this));
         this.messages.infoMessage("Initializing internal API.");
     }
 
