@@ -15,6 +15,9 @@ public class FileManager {
     }
 
     public File createFile(String path, String fileName){
+        File file = new File(this.plugin.getDataFolder().getPath() + path, fileName);
+        if (file.getParentFile().mkdir()) this.msg.infoMessage("Directorio creado.");
+
         return new File(this.plugin.getDataFolder().getPath() + path, fileName);
     }
 
