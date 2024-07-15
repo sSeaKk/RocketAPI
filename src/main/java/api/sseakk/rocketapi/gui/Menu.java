@@ -18,6 +18,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+/**
+ * Menu class for creating GUIs.
+ * @author sSeaKk
+ * @version 1.3
+ * @since RocketAPI-1.0
+ */
 public abstract class Menu {
     protected Component menuName;
     protected int slots;
@@ -26,8 +32,14 @@ public abstract class Menu {
     protected static Map<Player, Menu> playerMenuOpened = new HashMap<Player, Menu>();
 
     protected ItemStack item;
-    protected SkullMeta skmeta;
 
+    /**
+     * Creates a new menu for the player.
+     * @since RocketAPI-1.0
+     * @param player player to open menu
+     * @param name name of menu
+     * @param slots number of slots of inventory menu
+     */
     public Menu(Player player, String name, int slots) {
         this.menuName = Component.text(name);
         this.slots = slots;
@@ -42,6 +54,13 @@ public abstract class Menu {
         player.openInventory(menu);
     }
 
+    /**
+     * Creates a new menu for the player.
+     * @since RocketAPI-1.3
+     * @param player player to open menu
+     * @param name name of menu
+     * @param type type of inventory menu
+     */
     public Menu(Player player, String name, InventoryType type){
         this.menuName = Component.text(name);
         this.slots = type.getDefaultSize();
@@ -54,15 +73,36 @@ public abstract class Menu {
         player.openInventory(menu);
     }
 
+    /**
+     * Get the menu inventory window.
+     * @since RocketAPI-1.3
+     * @return Inventory
+     */
     public Inventory getMenu() {
         return this.menu;
     }
 
+    /**
+     * Check if the player has the menu open.
+     * @since RocketAPI-1.3
+     * @param player player
+     * @return boolean
+     */
     public static boolean isGuiOpen(Player player) {
-        if(openedGui.contains(player)) return true;
-        return false;
+        return openedGui.contains(player);
     }
 
+    /**
+     * Create icon in the menu.
+     * @since RocketAPI-1.0
+     * @param name icon name
+     * @param slot icon slot
+     * @param item icon item
+     * @param args icon extra arguments:
+     *             - String: icon lore
+     *             - ItemFlag: icon item flag
+     *             - Enchantment: icon item enchantment
+     */
     public void createIcon(String name, int slot, ItemStack item, Object... args) {
         ArrayList<Component> lore = new ArrayList<>();
         ItemMeta meta = item.getItemMeta();
@@ -84,25 +124,40 @@ public abstract class Menu {
         item.setItemMeta(meta);
 
         if(item.getType() == Material.PLAYER_HEAD) {
-            SkullMeta skmeta = (SkullMeta) item.getItemMeta();
-            skmeta.setOwningPlayer(Bukkit.getOfflinePlayer(name));
-            item.setItemMeta(skmeta);
+            SkullMeta skullMeta = (SkullMeta) item.getItemMeta();
+            skullMeta.setOwningPlayer(Bukkit.getOfflinePlayer(name));
+            item.setItemMeta(skullMeta);
         }
 
         this.menu.setItem(slot, item);
     }
 
+    /**
+     * Put the previous menu to the player key.
+     * @since RocketAPI-1.3
+     * @param player player
+     * @param menu menu
+     */
     protected void putOpenedMenuToPlayer(Player player, Menu menu) {
-        if(playerMenuOpened.containsKey(player)) {
-            playerMenuOpened.remove(player);
-        }
-
+        playerMenuOpened.remove(player);
         playerMenuOpened.put(player, menu);
     }
 
+    /**
+     * Get the player's open menu.
+     * @since RocketAPI-1.3
+     * @param player player
+     * @return get previous menu
+     */
     public static Menu getPlayerOpenMenu(Player player) {
         return playerMenuOpened.get(player);
     }
 
+    /**
+     * Open the previous menu.
+     * @since RocketAPI-1.3
+     * @param player player
+     * @param menuName menu name of previous menu
+     */
     public abstract void openPrevMenu(Player player, String menuName);
 }
