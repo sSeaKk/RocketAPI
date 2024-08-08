@@ -30,7 +30,7 @@ public class DatabaseManager {
     }
 
     /**
-     * Connects to a database.
+     * Connects to a mysql database.
      * @since RocketAPI-1.3
      * @param server server address
      * @param dbName database name
@@ -38,7 +38,7 @@ public class DatabaseManager {
      * @param password password
      * @return database if connected, null instead
      */
-    public Database connectDatabase(String server, String dbName, String user, String password){
+    public Database connectMysqlDatabase(String server, String dbName, String user, String password){
         Connection connection = null;
 
         try {
@@ -56,13 +56,13 @@ public class DatabaseManager {
     }
 
     /**
-     * Connects to a database, with root login credentials.
+     * Connects to a mysql database, with root login credentials.
      * @since RocketAPI-1.3
      * @param server server address
      * @param dbName database name
      * @return database if connected, null instead
      */
-    public Database connectDatabase(String server, String dbName){
+    public Database connectMysqlDatabase(String server, String dbName){
         Connection connection = null;
 
         try {
@@ -74,6 +74,29 @@ public class DatabaseManager {
             return database;
         } catch (SQLException e) {
             this.messages.databaseConnectionError(dbName);
+        }
+
+        return null;
+    }
+
+    /**
+     * Connects to a sqlite database, with root login credentials.
+     * @since RocketAPI-2.2
+     * @param path database path
+     * @return database if connected, null instead
+     */
+    public Database connectSQLiteDatabase(String dbname, String path){
+        Connection connection = null;
+
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:" + path);
+            Database database = new Database(dbname, connection);
+
+            this.dbmap.put(dbname, database);
+            this.messages.databaseLog(database, "Successfully connected to " + database.getName() + " database.");
+            return database;
+        } catch (SQLException e) {
+            this.messages.databaseConnectionError(dbname);
         }
 
         return null;
